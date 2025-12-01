@@ -1,13 +1,12 @@
 import { useNavigate } from '@tanstack/react-router';
 import { Select, Tag } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { Dealer } from 'models/dealer';
 import { PriceSortOrder } from 'services';
 import { useWidgetStore } from 'store/useWidgetStore';
 import s from './Filters.module.scss';
 
 export const Filters = observer(() => {
-  const { catalog, dealers } = useWidgetStore();
+  const { catalog } = useWidgetStore();
   const navigate = useNavigate();
 
   const sortOptions = [
@@ -28,8 +27,8 @@ export const Filters = observer(() => {
     updateUrl();
   };
 
-  const handleToggleDealer = (dealer: Dealer, checked: boolean) => {
-    catalog.filter.toggleDealer(dealer, checked);
+  const handleToggleDealer = (id: string, checked: boolean) => {
+    catalog.filter.toggleDealer(id, checked);
     updateUrl();
   };
 
@@ -40,17 +39,18 @@ export const Filters = observer(() => {
         value={catalog.filter.priceSortOrder}
         options={sortOptions}
         onChange={handleSortChange}
+        style={{ width: '100%', maxWidth: '200px' }}
       />
-      {dealers.list.length > 1 && (
+      {catalog.filter.availableDealers.length > 1 && (
         <div className={s.Filters__tags}>
-          {dealers.list.map((dealer) => (
+          {catalog.filter.availableDealers.map((dealerId) => (
             <Tag.CheckableTag
-              key={dealer.id}
-              checked={catalog.filter.selectedDealers.has(dealer)}
-              onChange={(checked) => { handleToggleDealer(dealer, checked); }}
+              key={dealerId}
+              checked={catalog.filter.selectedDealerIds.has(dealerId)}
+              onChange={(checked) => { handleToggleDealer(dealerId, checked); }}
               style={{ height: '32px', display: 'flex', alignItems: 'center', fontSize: '16px' }}
             >
-              {dealer.displayName}
+              {dealerId}
             </Tag.CheckableTag>
           ))}
         </div>

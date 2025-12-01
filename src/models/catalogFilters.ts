@@ -1,7 +1,5 @@
-import { makeAutoObservable } from "mobx";
-import { PriceSortOrder } from "services";
-import { Dealer } from "./dealer";
-import { Dealers } from "./dealers";
+import { makeAutoObservable, runInAction } from "mobx";
+import { fetchDealers, PriceSortOrder } from "services";
 
 export interface CatalogSearchParams {
   dealers?: string;
@@ -12,18 +10,76 @@ const STORAGE_KEY = 'catalogFilters';
 const STORAGE_TTL = 10 * 60 * 1000;
 
 export class CatalogFilters {
-  selectedDealers = new Set<Dealer>();
+  selectedDealerIds = new Set<string>();
   priceSortOrder: PriceSortOrder = null;
 
-  dealers: Dealers;
+  availableDealers: string[] = [];
+  loading = true;
+  error: string | null = null;
 
-  constructor(dealers: Dealers) {
-    this.dealers = dealers;
+  _initialized = false;
+
+  constructor(initialDealerIds?: string[]) {
     makeAutoObservable(this);
+    void this.init(initialDealerIds);
   }
 
-  get availableDealers(): Dealer[] {
-    return this.dealers.list;
+  get initialized() {
+    return this._initialized;
+  }
+
+  initializeFrom(search: CatalogSearchParams) {
+    if (this._initialized) return;
+
+    this.initFromSearchOrStorage(search);
+    this._initialized = true;
+  }
+
+  private init = async (initialDealerIds?: string[]) => {
+    try {
+      let dealers: string[];
+
+      if (initialDealerIds && initialDealerIds.length > 0) {
+        dealers = [...initialDealerIds];
+      } else {
+        const apiDealers = await fetchDealers();
+        dealers = apiDealers;
+      }
+
+      runInAction(() => {
+        this.availableDealers = dealers;
+      });
+    } catch (e) {
+      runInAction(() => {
+        this.error = e instanceof Error
+          ? e.message
+          : "Не удалось загрузить список дилеров";
+
+        if (initialDealerIds && initialDealerIds.length > 0) {
+          this.availableDealers = [...initialDealerIds];
+        } else {
+          this.availableDealers = [];
+        }
+      });
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  };
+
+  toggleDealer(id: string, checked: boolean) {
+    if (checked) {
+      this.selectedDealerIds.add(id);
+    } else {
+      this.selectedDealerIds.delete(id);
+    }
+    this.updateLocalStorage();
+  }
+
+  setPriceSortOrder(order: PriceSortOrder) {
+    this.priceSortOrder = order;
+    this.updateLocalStorage();
   }
 
   updateLocalStorage() {
@@ -37,12 +93,12 @@ export class CatalogFilters {
   initFromSearchOrStorage(search: CatalogSearchParams) {
     if (search.dealers || search.priceOrder) {
       this.initFromSearch(search);
-      this.updateLocalStorage();
-      
+      // this.updateLocalStorage();
       return;
     }
-
+    
     const stored = localStorage.getItem(STORAGE_KEY);
+
     if (stored) {
       try {
         const parsed = JSON.parse(stored) as { timestamp: number; params: CatalogSearchParams };
@@ -61,9 +117,7 @@ export class CatalogFilters {
 
   initFromSearch(search: CatalogSearchParams) {
     if (search.dealers) {
-      const ids = search.dealers.split(',');
-      const selected = this.availableDealers.filter(d => ids.includes(d.id));
-      this.selectedDealers = new Set(selected);
+      this.selectedDealerIds = new Set(search.dealers.split(','));
     }
 
     if (search.priceOrder === 'asc' || search.priceOrder === 'desc') {
@@ -72,42 +126,9 @@ export class CatalogFilters {
   }
 
   toSearchParams(): CatalogSearchParams {
-    const params: CatalogSearchParams = {};
-    
-    if (this.selectedDealers.size > 0) {
-      params.dealers = [...this.selectedDealers].map(d => d.id).join(',');
-    }
-    
-    if (this.priceSortOrder) {
-      params.priceOrder = this.priceSortOrder;
-    }
-    return params;
-  }
-
-  toggleDealer(dealer: Dealer, checked: boolean) {
-    if (checked) {
-      this.selectedDealers.add(dealer);
-    }
-    else {
-      this.selectedDealers.delete(dealer);
-    }
-
-    this.updateLocalStorage();
-  }
-
-  setPriceSortOrder(order: PriceSortOrder) {
-    this.priceSortOrder = order;
-    this.updateLocalStorage();
-  }
-
-  clearDealers() {
-    this.selectedDealers.clear();
-    this.updateLocalStorage();
-  }
-
-  clear() {
-    this.clearDealers();
-    this.priceSortOrder = null;
-    this.updateLocalStorage();
+    return {
+      dealers: this.selectedDealerIds.size ? [...this.selectedDealerIds].join(',') : undefined,
+      priceOrder: this.priceSortOrder ?? undefined,
+    };
   }
 }

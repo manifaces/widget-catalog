@@ -9,7 +9,7 @@ if (containerElement) {
 
   root.render(
     <React.StrictMode>
-      <App dealers={['0c4aab30', '86e64a33']}/>
+      <App dealers={["0c4aab30","1efa7e46","86e64a33"]}/>
     </React.StrictMode>
   );
 }

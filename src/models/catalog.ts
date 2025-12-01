@@ -1,7 +1,6 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { ApiProduct, fetchProducts } from "services";
 import { CatalogFilters } from "./catalogFilters";
-import { Dealers } from "./dealers";
 import { Product } from "./product";
 
 export class Catalog {
@@ -13,11 +12,8 @@ export class Catalog {
   filter: CatalogFilters;
   initialDealerIds?: string[];
 
-  dealers: Dealers;
-
-  constructor(filter: CatalogFilters, dealers: Dealers, initialDealerIds?: string[]) {
+  constructor(filter: CatalogFilters, initialDealerIds?: string[]) {
     this.filter = filter;
-    this.dealers = dealers;
     this.initialDealerIds = initialDealerIds;
     makeAutoObservable(this);
     
@@ -26,7 +22,7 @@ export class Catalog {
     
     reaction(
       () => [
-        [...this.filter.selectedDealers].map(d => d.id).join(","),
+        [...this.filter.selectedDealerIds].join(","),
         this.filter.priceSortOrder
       ],
       () => {
@@ -36,8 +32,8 @@ export class Catalog {
   }
 
   get currentDealerIds(): string[] | undefined {
-    if (this.filter.selectedDealers.size > 0) {
-      return [...this.filter.selectedDealers].map(d => d.id);
+    if (this.filter.selectedDealerIds.size > 0) {
+      return [...this.filter.selectedDealerIds];
     }
     return this.initialDealerIds;
   }

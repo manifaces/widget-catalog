@@ -1,10 +1,9 @@
 {
-  "name": "perx-test",
+  "name": "widget-catalog",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "deploy": "gh-pages -d dist",
     "preview": "vite preview",
     "postinstall": "husky",
     "stylelint": "stylelint --fix \"**/*.{css,scss}\"",
