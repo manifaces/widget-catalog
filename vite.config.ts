@@ -9,26 +9,19 @@ export default defineConfig({
     react(),
     tsconfigPaths()
   ],
-  // абсолютные импорты в SCSS-файлах
   resolve: { alias: { styles: '/src/styles' } },
   build: {
+    cssCodeSplit: false,
     rollupOptions: {
-      input: './src/WidgetCatalog.tsx',
+      input: {
+        main: './src/WidgetCatalog.tsx',
+      },
       output: {
         format: 'umd',
         name: 'WidgetCatalog',
+        assetFileNames: 'widget-catalog.css',
         entryFileNames: 'widget-catalog.js',
-        assetFileNames: (assetInfo) => {
-          const hasCss = assetInfo.names.some(name => name.slice(-4) === '.css') ||
-            assetInfo.originalFileNames.some(name => name.slice(-4) === '.css');
-
-          if (hasCss) {
-            return 'widget-catalog.css';
-          }
-
-          return '[name].[hash][extname]'
-        },
       }
     }
   }
-})
+});

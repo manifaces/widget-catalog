@@ -8,7 +8,7 @@ import eslintPluginRouter from '@tanstack/eslint-plugin-router';
 import typescriptEslint from 'typescript-eslint';
 
 const frontFiles = ['src/**/*.{ts,tsx}'];
-const frontImportTypes = ['components', 'features', 'hooks', 'routes', 'store', 'services', models];
+const frontImportTypes = ['components', 'routes', 'store', 'services', 'models'];
 
 export default [
   // global ignores
