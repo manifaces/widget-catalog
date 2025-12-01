@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { ApiDealerId } from 'services';
 
 export class Dealer {
-  id: string = '';
+  id = '';
 
   constructor(apiDealerId?: ApiDealerId) {
     if (apiDealerId) {

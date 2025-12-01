@@ -1,8 +1,8 @@
 import { makeAutoObservable } from 'mobx';
+import { Cart } from './cart';
 import { Catalog } from './catalog';
 import { CatalogFilters } from './catalogFilters';
 import { Dealers } from './dealers';
-import { Cart } from './cart';
 
 export class RootStore {
   catalog: Catalog;

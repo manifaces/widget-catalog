@@ -1,9 +1,9 @@
-import { useWidgetStore } from 'store/useWidgetStore';
 import { ShoppingOutlined } from '@ant-design/icons';
 import { Link } from '@tanstack/react-router';
-import s from './CartLink.module.scss';
-import { observer } from 'mobx-react-lite';
 import clsx from 'clsx';
+import { observer } from 'mobx-react-lite';
+import { useWidgetStore } from 'store/useWidgetStore';
+import s from './CartLink.module.scss';
 
 export const CartLink = observer(({ className }: { className?: string }) => {
   const { cart } = useWidgetStore();

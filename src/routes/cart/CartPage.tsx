@@ -1,6 +1,6 @@
 import { ContentBox } from 'components/ContentBox';
-import s from './CartPage.module.scss';
 import { CartList } from './_sections/CartList';
+import s from './CartPage.module.scss';
 
 export const CartPage = () => {
   return (

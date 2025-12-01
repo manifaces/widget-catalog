@@ -3,15 +3,13 @@ import { ApiProduct } from "services";
 import { rootUrl } from "store/config";
 
 export class Product {
-  id: string = '';
-  name: string = '';
-  price: number = 0;
-  image: string = '';
+  id = '';
+  name = '';
+  price = 0;
+  image = '';
 
   constructor(apiProduct: ApiProduct) {
-    if (apiProduct) {
-      this.setFromApi(apiProduct);
-    }
+    this.setFromApi(apiProduct);
 
     makeAutoObservable(this);
   }
@@ -21,17 +19,17 @@ export class Product {
   }
 
   get formattedPrice(): string {
-    return `${Math.round(this.price)} ₽`;
+    return `${Math.round(this.price).toString()} ₽`;
   }
 
   get imagePath(): string {
-    return `${rootUrl + this.image}`
+    return rootUrl + this.image
   }
 
   setFromApi(apiProduct: ApiProduct) {
     this.id = apiProduct.id;
     this.name = apiProduct.name;
-    this.price = Number(apiProduct.price) ?? 0;
+    this.price = typeof apiProduct.price === 'string' ? Number(apiProduct.price) : apiProduct.price;
     this.image = apiProduct.image;
   }
 }

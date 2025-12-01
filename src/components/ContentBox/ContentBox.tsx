@@ -1,6 +1,6 @@
+import clsx from 'clsx';
 import { ReactNode } from 'react';
 import s from './ContentBox.module.scss';
-import clsx from 'clsx';
 
 export interface ContentBoxProps {
   className?: string;

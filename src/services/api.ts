@@ -6,10 +6,10 @@ export const fetchDealers = async (): Promise<ApiDealerId[]> => {
   const response = await fetch(`${apiUrl}/dealers/`);
   
   if (!response.ok) {
-    throw new Error(`Ошибка получения дилеров: ${response.status}`);
+    throw new Error(`Ошибка получения дилеров: ${response.status.toString()}`);
   }
   
-  return response.json();
+  return (await response.json()) as ApiDealerId[];
 };
 
 export const fetchProducts = async (dealerIds?: string[]): Promise<ApiProduct[]> => {
@@ -23,8 +23,8 @@ export const fetchProducts = async (dealerIds?: string[]): Promise<ApiProduct[]>
   const response = await fetch(url);
   
   if (!response.ok) {
-    throw new Error(`Ошибка получения товаров: ${response.status}`);
+    throw new Error(`Ошибка получения товаров: ${response.status.toString()}`);
   }
   
-  return response.json();
+  return (await response.json()) as ApiProduct[];
 };

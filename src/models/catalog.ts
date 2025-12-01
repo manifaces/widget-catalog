@@ -1,8 +1,8 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
-import { CatalogFilters } from "./catalogFilters";
-import { Product } from "./product";
 import { ApiProduct, fetchProducts } from "services";
+import { CatalogFilters } from "./catalogFilters";
 import { Dealers } from "./dealers";
+import { Product } from "./product";
 
 export class Catalog {
   products: Product[] = [];
@@ -21,16 +21,16 @@ export class Catalog {
     this.initialDealerIds = initialDealerIds;
     makeAutoObservable(this);
     
-    this.loadAllProducts();
-    this.loadProducts();
+    void this.loadAllProducts();
+    void this.loadProducts();
     
     reaction(
       () => [
-        [...this.filter.selectedDealers].join(","),
+        [...this.filter.selectedDealers].map(d => d.id).join(","),
         this.filter.priceSortOrder
       ],
       () => {
-        this.loadProducts();
+        void this.loadProducts();
       }
     );
   }
@@ -85,7 +85,7 @@ export class Catalog {
   };
 
   get filteredAndSortedProducts(): Product[] {
-    let result = [...this.products];
+    const result = [...this.products];
 
     if (this.filter.priceSortOrder === 'asc') {
       result.sort((a, b) => a.price - b.price);

@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { Dealer } from "./dealer";
 import { ApiDealerId, fetchDealers } from "services";
+import { Dealer } from "./dealer";
 
 export class Dealers {
   dealers: Dealer[] = [];
@@ -15,7 +15,7 @@ export class Dealers {
         this.dealers = initialDealerIds.map(id => new Dealer(id));
       });
     } else {
-      this.loadDealers();
+      void this.loadDealers();
     }
   }
 

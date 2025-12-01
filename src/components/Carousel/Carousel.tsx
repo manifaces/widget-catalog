@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { Carousel as AntCarousel } from 'antd';
-import s from './Carousel.module.scss';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Carousel as AntCarousel } from 'antd';
+import { ReactNode } from 'react';
+import s from './Carousel.module.scss';
 
 export interface CarouselProps {
   dots?: boolean;

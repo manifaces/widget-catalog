@@ -1,9 +1,9 @@
-import s from './ProductsList.module.scss';
-import { ProductCard } from "components/ProductCard";
 import { Filters } from "components/Filters";
+import { Loader } from 'components/Loader';
+import { ProductCard } from "components/ProductCard";
 import { observer } from "mobx-react-lite";
 import { useWidgetStore } from "store/useWidgetStore";
-import { Loader } from 'components/Loader';
+import s from './ProductsList.module.scss';
 
 export const ProductsList = observer(() => {
   const { catalog, dealers } = useWidgetStore();

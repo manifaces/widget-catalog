@@ -1,10 +1,10 @@
+import { useNavigate } from '@tanstack/react-router';
+import { Select, Tag } from 'antd';
+import { observer } from 'mobx-react-lite';
+import { Dealer } from 'models/dealer';
+import { PriceSortOrder } from 'services';
 import { useWidgetStore } from 'store/useWidgetStore';
 import s from './Filters.module.scss';
-import { Select, Tag } from 'antd';
-import { PriceSortOrder } from 'services';
-import { observer } from 'mobx-react-lite';
-import { useNavigate } from '@tanstack/react-router';
-import { Dealer } from 'models/dealer';
 
 export const Filters = observer(() => {
   const { catalog, dealers } = useWidgetStore();
@@ -17,7 +17,7 @@ export const Filters = observer(() => {
   ];
 
   const updateUrl = () => {
-    navigate({
+    void navigate({
       to: '/catalog',
       search: catalog.filter.toSearchParams(),
     });
@@ -47,7 +47,7 @@ export const Filters = observer(() => {
             <Tag.CheckableTag
               key={dealer.id}
               checked={catalog.filter.selectedDealers.has(dealer)}
-              onChange={(checked) => handleToggleDealer(dealer, checked)}
+              onChange={(checked) => { handleToggleDealer(dealer, checked); }}
               style={{ height: '32px', display: 'flex', alignItems: 'center', fontSize: '16px' }}
             >
               {dealer.displayName}

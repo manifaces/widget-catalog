@@ -66,7 +66,7 @@ export class Cart {
 
   get totalPrice() {
     const sum = this.items.reduce((sum, i) => sum + Math.round(i.product.price) * i.quantity, 0);
-    return `${Math.round(sum)} ₽`;
+    return `${Math.round(sum).toString()} ₽`;
   }
 
   private saveToStorage() {
@@ -82,7 +82,7 @@ export class Cart {
           image: i.product.image
         },
         quantity: i.quantity, 
-        timestamp
+        timestamp: timestamp.toString()
       })))
     );
   }
@@ -93,7 +93,7 @@ export class Cart {
     if (!raw) return [];
     
     try {
-      const stored: StoredCartItem[] = JSON.parse(raw);
+      const stored = JSON.parse(raw) as StoredCartItem[];
       const now = Date.now();
       
       return stored

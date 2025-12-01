@@ -1,9 +1,9 @@
-import { Card } from 'antd';
-import s from './ProductCard.module.scss';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { useWidgetStore } from 'store/useWidgetStore';
-import { Product } from 'models/product';
+import { Card } from 'antd';
 import { observer } from 'mobx-react-lite';
+import { Product } from 'models/product';
+import { useWidgetStore } from 'store/useWidgetStore';
+import s from './ProductCard.module.scss';
 
 const { Meta } = Card;
 
@@ -29,11 +29,11 @@ export const ProductCard = observer(({
         />
       }
       actions={[
-        <MinusOutlined onClick={() => cart.decreaseProduct(product.id)} style={{ fontSize: '20px' }} />,
-        <div style={{ fontSize: '20px', color: quantityInCart > 0 ? '#e81741' : 'rgba(0,0,0,0.45)' }}>
+        <MinusOutlined key="minus" onClick={() => { cart.decreaseProduct(product.id); }} style={{ fontSize: '20px' }} />,
+        <div key="quantity" style={{ fontSize: '20px', color: quantityInCart > 0 ? '#e81741' : 'rgba(0,0,0,0.45)' }}>
           {quantityInCart}
         </div>,
-        <PlusOutlined onClick={() => cart.addProduct(product)} style={{ fontSize: '20px' }} />
+        <PlusOutlined key="plus" onClick={() => { cart.addProduct(product); }} style={{ fontSize: '20px' }} />
       ]}
     >
       <Meta 

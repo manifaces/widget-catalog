@@ -1,10 +1,10 @@
+import { ContentBox } from "components/ContentBox";
+import { ErrorMessage } from "components/ErrorMessage";
 import { Loader } from "components/Loader";
 import { observer } from "mobx-react-lite";
 import { useWidgetStore } from "store/useWidgetStore";
-import s from './HomePage.module.scss';
-import { ErrorMessage } from "components/ErrorMessage";
 import { GalleryPreview } from "./_sections/GalleryPreview";
-import { ContentBox } from "components/ContentBox";
+import s from './HomePage.module.scss';
 
 export const HomePage = observer(() => {
   const { catalog } = useWidgetStore();

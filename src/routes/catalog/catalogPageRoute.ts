@@ -1,7 +1,7 @@
 import { createRoute } from '@tanstack/react-router';
+import { CatalogSearchParams } from 'models/catalogFilters';
 import { rootRoute } from 'routes/root';
 import { CatalogPage } from './CatalogPage';
-import { CatalogSearchParams } from 'models/catalogFilters';
 
 export const catalogPageRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -11,7 +11,7 @@ export const catalogPageRoute = createRoute({
     let dealers: string | undefined;
 
     if (Array.isArray(search.dealers)) {
-      dealers = search.dealers.join(','); // объединяем в одну строку
+      dealers = search.dealers.join(',');
     } else if (typeof search.dealers === 'string') {
       dealers = search.dealers;
     }

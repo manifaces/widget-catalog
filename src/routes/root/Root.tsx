@@ -1,6 +1,6 @@
 import { Outlet } from '@tanstack/react-router';
-import s from './Root.module.scss';
 import { Header } from 'components/Header';
+import s from './Root.module.scss';
 
 export function Root() {
   return (

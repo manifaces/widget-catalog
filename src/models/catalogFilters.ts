@@ -12,7 +12,7 @@ const STORAGE_KEY = 'catalogFilters';
 const STORAGE_TTL = 10 * 60 * 1000;
 
 export class CatalogFilters {
-  selectedDealers: Set<Dealer> = new Set();
+  selectedDealers = new Set<Dealer>();
   priceSortOrder: PriceSortOrder = null;
 
   dealers: Dealers;
@@ -51,7 +51,7 @@ export class CatalogFilters {
         if (age < STORAGE_TTL) {
           this.initFromSearch(parsed.params);
         } else {
-          localStorage.removeItem(STORAGE_KEY); // устарело — очищаем
+          localStorage.removeItem(STORAGE_KEY);
         }
       } catch {
         localStorage.removeItem(STORAGE_KEY);

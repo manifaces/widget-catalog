@@ -1,7 +1,7 @@
-import s from './Header.module.scss';
 import { Link } from '@tanstack/react-router';
-import { ContentBox } from 'components/ContentBox';
 import { CartLink } from 'components/CartLink';
+import { ContentBox } from 'components/ContentBox';
+import s from './Header.module.scss';
 
 export const Header = () => {  
   return (

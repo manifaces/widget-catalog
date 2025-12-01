@@ -1,20 +1,20 @@
-import { ContentBox } from 'components/ContentBox';
-import s from './CatalogPage.module.scss';
-import { useWidgetStore } from 'store/useWidgetStore';
 import { useNavigate, useSearch } from '@tanstack/react-router';
-import { ProductsList } from './_sections/ProductsList';
+import { ContentBox } from 'components/ContentBox';
+import { CatalogSearchParams } from 'models/catalogFilters';
 import { useEffect } from 'react';
+import { useWidgetStore } from 'store/useWidgetStore';
+import { ProductsList } from './_sections/ProductsList';
+import s from './CatalogPage.module.scss';
 
 export const CatalogPage = () => {
   const { catalog } = useWidgetStore();
-  const search = useSearch({ from: '/catalog' });
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  const search = useSearch({ from: '/catalog' }) as CatalogSearchParams;
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Восстанавливаем фильтры
     catalog.filter.initFromSearchOrStorage(search);
 
-    // После восстановления фильтров из localStorage обновляем URL
     const params = catalog.filter.toSearchParams();
     const urlDealers = typeof search.dealers === 'string' ? search.dealers : '';
     const paramDealers = params.dealers ?? '';
@@ -23,7 +23,7 @@ export const CatalogPage = () => {
 
     const urlChanged = urlDealers !== paramDealers || urlPriceOrder !== paramPriceOrder;
     if (urlChanged) {
-      navigate({ to: '/catalog', search: params });
+      void navigate({ to: '/catalog', search: params });
     }
   }, [catalog.filter, search, navigate]);
 

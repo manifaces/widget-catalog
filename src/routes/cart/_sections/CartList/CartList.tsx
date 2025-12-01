@@ -1,8 +1,8 @@
+import { Link } from '@tanstack/react-router';
+import { ProductCard } from 'components/ProductCard';
+import { observer } from 'mobx-react-lite';
 import { useWidgetStore } from 'store/useWidgetStore';
 import s from './CartList.module.scss';
-import { ProductCard } from 'components/ProductCard';
-import { Link } from '@tanstack/react-router';
-import { observer } from 'mobx-react-lite';
 
 export const CartList = observer(() => {
   const { cart } = useWidgetStore();
@@ -44,7 +44,7 @@ export const CartList = observer(() => {
               На сумму: <span>{cart.totalPrice}</span>
             </p>
           </div>
-          <div className={s.CartList__clear} onClick={() => cart.clear()}>
+          <div className={s.CartList__clear} onClick={() => { cart.clear(); }}>
             Очистить корзину
           </div>
         </div>

@@ -1,6 +1,6 @@
-import { Product } from 'models/product';
-import { ProductCard } from 'components/ProductCard';
 import { Carousel } from 'components/Carousel';
+import { ProductCard } from 'components/ProductCard';
+import { Product } from 'models/product';
 
 export interface GalleryPreviewProps {
   products: Product[];
