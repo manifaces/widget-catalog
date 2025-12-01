@@ -2,6 +2,8 @@
 
 Виджет каталога товаров, разработанный на React с использованием Mobx и Vite. Позволяет быстро интегрировать каталог в сторонние страницы через скрипт и CSS-бандл.
 
+[ДЕМОНСТРАЦИЯ](https://dist-manifaces-nicks-projects-51726a97.vercel.app?_vercel_share=kqkCdYIcTVk8uQ2bDCvn71Low3AYKtfK)
+
 ## Разработка
 
 ### Стек
