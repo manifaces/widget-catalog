@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router';
+import clsx from 'clsx';
 import { ProductCard } from 'components/ProductCard';
 import { observer } from 'mobx-react-lite';
 import { useWidgetStore } from 'store/useWidgetStore';
@@ -32,7 +33,7 @@ export const CartList = observer(() => {
         )}
       </div>
       {cart.totalCount > 0 && (
-        <div className={s.CartList__info}>
+        <div className={clsx(s.CartList__info, s.CartList__info_fixed)}>
           <div className={s.CartList__title}>
             Итого:
           </div>

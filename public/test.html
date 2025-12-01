@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Widget Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./widget-catalog.css" />
+</head>
+<body>
+  <div id="widget-catalog"></div>
+
+  <script type="text/javascript">
+    function initWidgetCatalog() {
+      const widget = new window.WidgetCatalog({
+        el: "#widget-catalog",
+        dealers: []
+      });
+
+      widget.run();
+    }
+  </script>
+
+  <script async src="./widget-catalog.js" onload="initWidgetCatalog()"></script>
+</body>
+</html>

@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+# widget-catalog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Виджет каталога товаров, разработанный на React с использованием Mobx и Vite. Позволяет быстро интегрировать каталог в сторонние страницы через скрипт и CSS-бандл.
 
-Currently, two official plugins are available:
+## Разработка
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Стек
 
-## React Compiler
+- React
+- TypeScript
+- Vite
+- MobX
+- @tanstack/react-router
+- Ant Design (antd)
+- SCSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Особенности реализации
 
-## Expanding the ESLint configuration
+`src/App.tsx` – корневой компонент приложения.
+`src/WidgetCatalog.tsx` – точка входа и класс инициализации виджета.
+`src/models/` – модели данных, управляемые MobX.
+`src/store/` – инициализация корневого стора.
+`src/routes/` – маршрутизация.
+`src/components/` – компоненты интерфейса.
+`src/services/` – взаимодействие с API.
+`src/styles/` – токены предполагаемой дизайн-системы.
+`vite.config.ts` – конфигурация Vite.
+`public/test.html` – точка входа для тестирования сборки.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Команды
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Предполагается, что все они будут исполняться из корня репозитория.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+#### `yarn dev`
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Запускает веб-приложения в dev-режиме на http://localhost:5173 (или на ближайшем к нему свободном).
+Все изменения в коде подтягиваются автоматически.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+#### `yarn build`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Собирает приложение в продакшн-режиме. Результат помещается в папку `dist` (файлы `widget-catalog.js` и `widget-catalog.css`).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#### `yarn preview`
+
+Запускает локальный сервер для предварительного просмотра собранной версии из папки `dist`. 
+Для тестирования поместите файл `test.html` из папки `public` в корень `dist` и переименуйте его в `index.html`.
