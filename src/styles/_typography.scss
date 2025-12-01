@@ -1,0 +1,50 @@
+$family-golos:
+  'GolosText',
+  system-ui,
+  /* macOS 10.11-10.12 */ -apple-system,
+  /* Windows 6+ */ 'Segoe UI',
+  /* Android 4+ */ 'Roboto',
+  /* Ubuntu 10.10+ */ 'Ubuntu',
+  /* Gnome 3+ */ 'Cantarell',
+  /* KDE Plasma 5+ */ 'Noto Sans',
+  /* fallback */ sans-serif,
+  /* macOS emoji */ 'Apple Color Emoji',
+  /* Windows emoji */ 'Segoe UI Emoji',
+  /* Windows emoji */ 'Segoe UI Symbol',
+  /* Linux emoji */ 'Noto Color Emoji';
+
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1280px;
+
+@mixin desktop-headline-h1 {
+  font-family: $family-golos;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+@mixin tablet-headline-h1 {
+  font-family: $family-golos;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+@mixin mobile-headline-h1 {
+  font-family: $family-golos;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+@mixin headline-h1 {
+  @include mobile-headline-h1;
+
+  @media (width >= $breakpoint-tablet) {
+    @include tablet-headline-h1;
+  }
+
+  @media (width >= $breakpoint-desktop) {
+    @include desktop-headline-h1;
+  }
+}

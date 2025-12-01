@@ -1,0 +1,54 @@
+
+@use 'styles' as ds;
+
+.ProductCard {
+  display: grid;
+  grid-template-rows: 200px 1fr;
+
+  :global(.ant-card-cover) {
+    grid-row: 1/2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: var(--ant-line-width) var(--ant-line-type) var(--ant-color-border-secondary);
+
+    & > img {
+      width: 150px;
+    }
+  }
+
+  :global(.ant-card-actions) li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+    padding: 0px;
+
+    & > span {
+      height: 100%;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0px;
+    }
+
+    &:nth-of-type(2) span {
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+
+  :global(.ant-card-meta-title) {
+    font-size: 20px;
+  }
+
+  :global(.ant-card-meta-description) {
+    font-size: 20px;
+    color: ds.$color-primary-70;
+  }
+
+  :global(.anticon:hover) {
+    color: ds.$color-primary-70!important;
+  }
+}

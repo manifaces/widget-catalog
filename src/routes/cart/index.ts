@@ -1,0 +1,1 @@
+export { cartPageRoute as cartRoute } from './cartPageRoute';

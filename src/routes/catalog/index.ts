@@ -1,0 +1,1 @@
+export { catalogPageRoute as catalogRoute } from './catalogPageRoute';

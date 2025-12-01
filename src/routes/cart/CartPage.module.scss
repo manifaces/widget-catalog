@@ -1,0 +1,15 @@
+@use 'styles' as ds;
+
+.CartPage {
+  flex: 1;
+  display: flex;
+  padding: 24px 0px;
+  
+  @media (width > 1024px) {
+    padding: 40px 0px;
+  }
+
+   @media (width > 1440px) {
+    padding: 60px 0px;
+  }
+}

@@ -1,0 +1,23 @@
+@use 'styles' as ds;
+
+.CartLink {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.CartLink__count {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  border-radius: 50%;
+  background-color: ds.$color-primary-60;
+  color: ds.$color-secondary-0;
+}

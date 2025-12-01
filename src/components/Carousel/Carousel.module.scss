@@ -1,0 +1,28 @@
+@use 'styles' as ds;
+
+.Carousel {
+  :global(.slick-arrow) {
+    width: 48px;
+    height: 48px;
+    display: flex!important;
+    align-items: center;
+    justify-content: center;
+    background-color: ds.$color-secondary-0;
+    border-radius: 50%;
+    color: ds.$color-primary-70;
+    opacity: 1;
+    box-shadow: 0 4px 12px #13151a1f;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    & svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  :global(.slick-list) {margin: 0 -6px;}
+  :global(.slick-slide) > div {padding: 0 6px;}
+}

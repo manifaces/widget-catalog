@@ -1,0 +1,19 @@
+.ProductsList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ProductsList__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+
+  @media (width > 576px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (width > 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
